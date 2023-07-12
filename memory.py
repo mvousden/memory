@@ -3,6 +3,7 @@
 import numpy as np
 import os
 import time
+import sys
 
 
 def clear_screen():
@@ -28,6 +29,16 @@ def increment_rotator(rotator):
         return "\\"
     elif rotator == "\\":
         return "|"
+
+
+def ver_input(message):
+    """
+    Cross-major-version input handling.
+    """
+    if sys.version_info.major < 3:
+        return raw_input(message)
+    else:
+        return input(message)
 
 
 def standard_game(timer, refreshMode=False):
@@ -59,7 +70,7 @@ def standard_game(timer, refreshMode=False):
 
         # Prompt user for sequence.
         clear_screen()
-        guess = raw_input("    What was the sequence? ")
+        guess = ver_input("    What was the sequence? ")
 
         # Failure condition.
         if guess != sequence:
@@ -84,7 +95,7 @@ def main():
     Welcome to memory! Choose your difficulty.
     [A for easy, b for medium, or c for hard].
     """)
-    difficulty = raw_input("    ")
+    difficulty = ver_input("    ")
 
     if difficulty == "c":
         difficultyText = "hard"
@@ -108,7 +119,7 @@ def main():
     print("""
     Would you like to play refresh mode for extra challenge? [y/N]
     """)
-    refreshMode = raw_input("    ")
+    refreshMode = ver_input("    ")
 
     if refreshMode == "y":
         refresh = True
@@ -130,7 +141,7 @@ def main():
     Press return when ready.
     """.format(difficultyTimer[difficulty]))
 
-    raw_input()
+    ver_input(" ")
     clear_screen()
 
     # Load old high score, if any.
@@ -163,7 +174,7 @@ def main():
               .format(highScore))
 
     # Try again?
-    again = raw_input("    Try again? [y/N] ")
+    again = ver_input("    Try again? [y/N] ")
     if again == "y":
         main()
 
